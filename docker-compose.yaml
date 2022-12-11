@@ -13,6 +13,8 @@ services:
             - LETSENCRYPT_HOST=${BORE_HOST:-t.eichefe.com.br}
         ports:
             - ${NGINX_PORT:-2300}:80
+        networks:
+            - bore
 
     bore-server:
         image: ekzhang/bore
