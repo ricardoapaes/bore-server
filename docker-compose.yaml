@@ -11,6 +11,8 @@ services:
         environment:
             - VIRTUAL_HOST=${BORE_HOST:-t.eichefe.com.br}
             - LETSENCRYPT_HOST=${BORE_HOST:-t.eichefe.com.br}
+        ports:
+            - ${NGINX_PORT:-2300}:80
 
     bore-server:
         image: ekzhang/bore
