@@ -1,0 +1,23 @@
+version: '3.7'
+networks:
+    bore:
+        name: bore
+        driver: bridge
+
+services:
+
+    bore-nginx:
+        build: .
+        environment:
+            - VIRTUAL_HOST=${BORE_HOST:-t.eichefe.com.br}
+            - LETSENCRYPT_HOST=${BORE_HOST:-t.eichefe.com.br}
+
+    bore-server:
+        image: ekzhang/bore
+        command: server --min-port ${MIN_PORT:-7500}
+        ports:
+            - 7835:7835
+        environment:
+            - BORE_SECRET=${BORE_SECRET}
+        networks:
+            - bore
