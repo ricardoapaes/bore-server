@@ -21,6 +21,8 @@ services:
         command: server --min-port ${MIN_PORT:-7500}
         ports:
             - 7835:7835
+        expose:
+            - 7000-8000
         environment:
             - BORE_SECRET=${BORE_SECRET}
         networks:
