@@ -18,11 +18,9 @@ services:
 
     bore-server:
         image: ekzhang/bore
-        command: server --min-port ${MIN_PORT:-7500}
+        command: server --min-port ${MIN_PORT:-7000}
         ports:
             - 7835:7835
-        expose:
-            - 7000-8000
         environment:
             - BORE_SECRET=${BORE_SECRET}
         networks:
