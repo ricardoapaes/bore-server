@@ -9,16 +9,16 @@ services:
     bore-nginx:
         build: .
         environment:
-            - VIRTUAL_HOST=${BORE_HOST:-t.eichefe.com.br}
-            - LETSENCRYPT_HOST=${BORE_HOST:-t.eichefe.com.br}
+            - VIRTUAL_HOST=${BORE_HOST}
+            - LETSENCRYPT_HOST=${BORE_HOST}
         ports:
-            - ${NGINX_PORT:-2300}:80
+            - ${NGINX_PORT:-80}:80
         networks:
             - bore
 
     bore-server:
         image: ekzhang/bore
-        command: server --min-port ${MIN_PORT:-7000}
+        command: server --min-port ${BORE_MIN_PORT:-7000}
         ports:
             - 7835:7835
         environment:
