@@ -3,6 +3,9 @@ networks:
     bore:
         name: bore
         driver: bridge
+    nginx-proxy:
+        name: nginx-proxy
+        driver: bridge
 
 services:
 
@@ -15,6 +18,7 @@ services:
             - ${NGINX_PORT:-80}:80
         networks:
             - bore
+            - nginx-proxy
 
     bore-server:
         image: ekzhang/bore
