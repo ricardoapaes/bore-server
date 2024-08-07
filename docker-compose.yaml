@@ -10,6 +10,7 @@ networks:
 services:
 
     bore-nginx:
+        image: likesistemas/bore-server:latest
         build: .
         environment:
             - VIRTUAL_HOST=${BORE_HOST}
@@ -22,7 +23,7 @@ services:
             - nginx-proxy
 
     bore-server:
-        image: ekzhang/bore
+        image: ekzhang/bore:latest
         command: server --min-port ${BORE_MIN_PORT:-7000}
         ports:
             - 7835:7835
