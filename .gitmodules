@@ -1,0 +1,3 @@
+[submodule "bore"]
+	path = bore
+	url = https://github.com/ekzhang/bore.git
