@@ -12,6 +12,7 @@ BORE_HOST=bore.example.com # Host to expose using `nginx-proxy`.
 BORE_SECRET=123456 # Secret to `bore-server`.
 BORE_MIN_PORT=7000 # Minimal port to `bore-server`.
 NGINX_PORT=80 # Port to expose nginx.
+BORE_SERVER_HOST=bore-server # Optional: Use to change `bore-server` host.
 ```
 
 ## How to start?

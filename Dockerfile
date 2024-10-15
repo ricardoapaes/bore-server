@@ -1,2 +1,2 @@
-FROM nginx:alpine
-COPY default.conf /etc/nginx/conf.d/
+FROM ekzhang/bore:latest
+CMD ["server"]
