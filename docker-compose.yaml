@@ -22,12 +22,14 @@ services:
 
     bore-server:
         build:
-            context: .
+            context: ./bore/
+            target: server
         ports:
-            - 7835:7835
+            - ${BORE_PORT:-7835}:7835
         restart: always
         environment:
             - BORE_SECRET=${BORE_SECRET}
-            - BORE_MIN_PORT=${BORE_MIN_PORT:-7000}
+            - BORE_MIN_PORT=${BORE_MIN_PORT:-1024}
+            - BORE_MAX_PORT=${BORE_MAX_PORT:-65535}
         networks:
             - bore
