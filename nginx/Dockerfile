@@ -8,5 +8,8 @@ RUN apk update --no-cache \
 
 ENV BORE_HOST="bore-server"
 COPY default.conf /etc/nginx/conf.d/default.tpl
+COPY bore-server.conf /etc/nginx/bore-server.tpl
 COPY change-host.sh /docker-entrypoint.d/00-change-host.sh
 RUN chmod +x /docker-entrypoint.d/00-change-host.sh
+
+RUN echo "include /etc/nginx/bore-server.conf;" >> /etc/nginx/nginx.conf
