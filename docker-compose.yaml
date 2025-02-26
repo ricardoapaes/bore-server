@@ -2,9 +2,6 @@ networks:
     bore:
         name: bore
         driver: bridge
-    nginx-proxy:
-        name: nginx-proxy
-        driver: bridge
 
 services:
 
@@ -15,17 +12,15 @@ services:
             - BORE_HOST=${BORE_SERVER_HOST:-bore-server}
         ports:
             - ${NGINX_PORT:-80}:80
+            - ${BORE_PORT:-7835}:7835
         restart: always
         networks:
             - bore
-            - nginx-proxy
 
     bore-server:
         build:
             context: ./bore/
             target: server
-        ports:
-            - ${BORE_PORT:-7835}:7835
         restart: always
         environment:
             - BORE_SECRET=${BORE_SECRET}
