@@ -1,0 +1,20 @@
+networks:
+  bore:
+    name: bore-local
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24"
+          gateway: "192.168.0.1"
+
+services:
+  bore-nginx:
+    environment:
+      - DNS_RESOLVER=${DNS_RESOLVER:-192.168.0.1}
+    networks:
+      - bore-local
+
+  bore-server:
+    networks:
+      - bore-local
