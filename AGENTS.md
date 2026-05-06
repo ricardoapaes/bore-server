@@ -19,8 +19,8 @@ Para organizar o histórico de versão e garantir conformidade no processo de CI
 `[Emoji] [ID-da-Tarefa-Jira] Mensagem clara do que foi feito`
 
 *Exemplos:*
-- `🐛 [EIC-123] Corrige erro de validação no formulário`
-- `✨ [EIC-124] Adiciona nova rota de exportação`
+- `🐛 [GEST-123] Corrige erro de validação no formulário`
+- `✨ [GEST-124] Adiciona nova rota de exportação`
 
 ### Tabela de Referência de Emojis
 Utilize os seguintes emojis de acordo com a finalidade do seu commit/PR:
