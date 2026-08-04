@@ -1,31 +1,59 @@
-# [bore-server] Bore server with https and subdomain
+# 🚇 Bore Server
+Um projeto que configura e expõe um servidor [Bore](https://github.com/ekzhang/bore) utilizando HTTPS e subdomínios, orquestrado através de contêineres Docker e um proxy reverso (Nginx).
+O Bore é um projeto moderno e rápido para criar túneis TCP de forma simples, similar ao ngrok.
 
-Create http point and expose `bore-server` using a domain and https.
+## 🚀 O que é o projeto
+Este repositório facilita a implantaação ("deployment") do `bore-server` fornecendo uma estrutura pronta para rodar em produção. Ele integra o servidor do Bore com um proxy reverso Nginx para oferecer endpoints seguros (HTTPS) baseados em subdomínios dinâmicos.
 
-Thanks for this great http tunnel implementation.
-https://github.com/ekzhang/bore
+## 🛠️ Tecnologias utilizadas
+- **Rust**: Linguagem base do servidor Bore.
+- **Docker & Docker Compose**: Empacotamento e orquestração dos serviços (Nginx e servidor Bore).
+- **Nginx**: Servidor web atuando como proxy reverso.
+- **Shell Script**: Automações auxiliares de configuração no ambiente.
 
-## Environment Variables
+## ✅ Pré-requisitos
+Antes de executar o projeto, você precisa ter instalados:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/) ou suporte ao compose através do Podman.
+- Instalação e configuração ativa do [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) e do [acme-companion](https://github.com/nginx-proxy/acme-companion) para gerenciamento automático de SSL.
 
+## ⚙️ Como rodar o projeto localmente (Docker)
+
+1. Crie uma cópia do arquivo de exemplo `.env.example` para `.env` e ajuste as configurações:
 ```shell
-BORE_HOST=bore.example.com # Host to expose using `nginx-proxy`.
-BORE_SECRET=123456 # Secret to `bore-server`.
-BORE_MIN_PORT=7000 # Minimal port to `bore-server`.
-NGINX_PORT=80 # Port to expose nginx.
-BORE_SERVER_HOST=bore-server # Optional: Use to change `bore-server` host.
+cp .env.example .env
 ```
 
-## How to start?
+2. Configurações de Variáveis de Ambiente no `.env`:
+```shell
+BORE_HOST=bore.example.com     # Domínio que será exposto no nginx-proxy
+BORE_SECRET=123456             # Chave secreta de autenticação no bore-server
+BORE_MIN_PORT=7000             # Porta mínima para alocação no bore-server
+NGINX_PORT=80                  # Porta de comunicação interna do nginx
+BORE_SERVER_HOST=bore-server   # (Opcional) Nome do host do bore-server na rede Docker
+```
 
-Once started and configured https://github.com/nginx-proxy/nginx-proxy and https://github.com/nginx-proxy/acme-companion.
-and setting the environment variables inside `.env` run the following command.
-
+3. Suba os contêineres com o Docker Compose:
 ```shell
 docker-compose up --build -d
 ```
+Isso fará o build do servidor Bore (a partir da pasta `bore/`) e da imagem Nginx customizada (a partir da pasta `nginx/`).
 
-## How to access externally?
+## 🌐 Como acessar externamente
+Uma vez que os serviços estejam rodando e o `nginx-proxy` tenha gerado o SSL, você pode acessar os túneis pelo domínio configurado no `BORE_HOST` e sua respectiva porta como um *caminho (subpasta)* da URL.
 
-To access use the domain defined in `BORE_HOST` using the port as a subfolder, like:
+Por exemplo, se o seu `BORE_HOST` é `bore.example.com` e a porta que o Bore designou foi a `7000`, a URL externa será:
+`https://bore.example.com/7000`
 
-Based on the `BORE_HOST` as "bore.example.com" and the port as 7000 the url would look like this: "https://bore.example.com/7000"
+## 🧪 Como executar os testes
+O núcleo da aplicação (Bore) é escrito em Rust. Para testá-lo localmente (caso deseje contribuir ou modificar o comportamento do servidor), você precisará do `cargo` instalado.
+
+1. Entre no diretório do bore:
+```shell
+cd bore
+```
+
+2. Execute os testes automatizados do cargo:
+```shell
+cargo test
+```
